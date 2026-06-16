@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 150" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      .cap     { font-family: 'Google Sans','Inter',sans-serif; font-size: 8px; letter-spacing: 0.08em; fill: #5a6270; text-transform: uppercase; text-anchor: middle; }
+      .letter  { font-family: 'Google Sans','Inter',sans-serif; font-size: 26px; font-weight: 700; fill: #1a1d28; text-anchor: middle; dominant-baseline: middle; }
+      .letterW { font-family: 'Google Sans','Inter',sans-serif; font-size: 26px; font-weight: 700; fill: #c2156e; text-anchor: middle; dominant-baseline: middle; }
+      .desc    { font-family: 'Google Sans','Inter',sans-serif; font-size: 9px; fill: #2a2f3c; text-anchor: middle; }
+      .desc2   { font-family: 'Google Sans','Inter',sans-serif; font-size: 8.5px; fill: #6b7387; text-anchor: middle; font-style: italic; }
+      .card    { fill: #fafbff; stroke: #c8ccd6; stroke-width: 1; rx: 6; }
+      .cardW   { fill: #fff0fa; stroke: #d68bbf; stroke-width: 1; rx: 6; }
+      .traj    { fill: none; stroke: #2273c0; stroke-width: 1.6; }
+      .traj2   { fill: none; stroke: #6b7387; stroke-width: 1.6; }
+      .trajW   { fill: none; stroke: #c2156e; stroke-width: 1.6; }
+      .barrier { fill: #c2156e; }
+      .formula { font-family: 'Google Sans','Inter',sans-serif; font-size: 13px; font-style: italic; fill: #1a1d28; text-anchor: middle; }
+      .gloss   { font-family: 'Google Sans','Inter',sans-serif; font-size: 8.5px; letter-spacing: 0.04em; fill: #5a6270; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Top caption -->
+  <text x="260" y="13" class="cap">Three matched rollouts per checkpoint θ</text>
+
+  <!-- =============== CARD A: same seed, free =============== -->
+  <rect x="15" y="22" width="150" height="74" class="card"/>
+  <text x="32" y="40" class="letter">A</text>
+  <path d="M 60,55 Q 82,42 105,55 T 150,55" class="traj"/>
+  <text x="90" y="80" class="desc">same seed, free</text>
+  <text x="90" y="92" class="desc2">reference rollout</text>
+
+  <!-- =============== CARD C: different seed, free =============== -->
+  <rect x="180" y="22" width="150" height="74" class="card"/>
+  <text x="197" y="40" class="letter">C</text>
+  <path d="M 225,55 Q 245,68 265,52 T 315,58" class="traj2"/>
+  <text x="255" y="80" class="desc">different seed, free</text>
+  <text x="255" y="92" class="desc2">noise-floor control</text>
+
+  <!-- =============== CARD W: same seed, early constraint then release =============== -->
+  <rect x="345" y="22" width="160" height="74" class="cardW"/>
+  <text x="362" y="40" class="letterW">W</text>
+  <rect x="387" y="48" width="3" height="16" class="barrier"/>
+  <path d="M 383,55 L 387,55 M 390,55 Q 412,42 434,60 T 488,55" class="trajW"/>
+  <text x="425" y="80" class="desc">same seed, early constraint, released</text>
+  <text x="425" y="92" class="desc2">intervention rollout</text>
+
+  <!-- =============== FORMULA STRIP =============== -->
+  <text x="260" y="118" class="formula">F<tspan font-size="9px" baseline-shift="sub">s</tspan>(θ)  =  d(A, W)  −  d(A, C)</text>
+  <text x="260" y="138" class="gloss">intervention effect  minus  seed-to-seed noise floor  ·  measured in CLIP-feature space</text>
+</svg>

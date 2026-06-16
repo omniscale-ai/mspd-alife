@@ -3,24 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+        content="Multi-Scale Path Divergence (MSPD) — an explicit RG-grounded scalar that both directs open-ended evolution in artificial life and reads back a physical signature of life-likeness (frustration).">
+  <meta name="keywords" content="MSPD, multi-scale path divergence, open-ended evolution, artificial life, Lenia, Flow-Lenia, cellular automata, Particle Life, RG, frustration, spin glass">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nerfies: Deformable Neural Radiance Fields</title>
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
+  <title>MSPD · Directing Open-Ended Evolution via Multi-Scale Path Divergence</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -34,140 +20,89 @@
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
+  <!-- KaTeX for the two formulas -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+          onload="renderMathInElement(document.body, {delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+
+  <style>
+    .claim-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .claim-table th, .claim-table td { padding: 0.7rem 0.9rem; text-align: left; border-bottom: 1px solid #e8e8e8; }
+    .claim-table th { font-weight: 600; background: #fafafa; }
+    .claim-status-ok { color: #2c8a3a; font-weight: 600; }
+    .claim-status-dir { color: #b58400; font-weight: 600; }
+    .claim-status-na { color: #999; }
+    .formula-gloss { font-size: 0.92em; color: #666; margin-top: -0.4rem; margin-bottom: 1.5rem; text-align: center; }
+    .formula-gloss .term { display: inline-block; margin: 0 0.8rem; }
+    figure.video-figure { margin: 1.5rem 0; }
+    figure.video-figure video { width: 100%; border-radius: 6px; }
+    figure.video-figure figcaption { font-size: 0.9em; color: #666; margin-top: 0.4rem; text-align: center; font-style: italic; }
+    .substrate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.2rem 0; }
+    .pair-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 1rem 0; }
+    .diagram-wide { width: 100%; max-width: 920px; margin: 1rem auto; display: block; }
+    .diagram-wide-img { width: 100%; height: auto; border-radius: 6px; }
+  </style>
 </head>
 <body>
-
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</nav>
-
 
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Nerfies: Deformable Neural Radiance Fields</h1>
+          <h1 class="title is-1 publication-title">Directing Open-Ended Evolution in Artificial Life via Multi-Scale Path Divergence</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
+              <a href="#">Mikhail Akhtyrchenko</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
+              <a href="#">Mikhail I. Katsnelson</a><sup>2,4</sup>,</span>
             <span class="author-block">
-              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+              <a href="#">Andrey Ustyuzhanin</a><sup>1,2,3</sup>
             </span>
           </div>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of Washington,</span>
-            <span class="author-block"><sup>2</sup>Google Research</span>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>1</sup>Constructor University, Bremen,</span>
+            <span class="author-block"><sup>2</sup>Constructor Knowledge Labs, Bremen,</span>
+            <span class="author-block"><sup>3</sup>Institute for Functional Intelligent Materials, NUS,</span>
+            <span class="author-block"><sup>4</sup>Radboud University, Nijmegen</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
+              <!-- Paper -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
+                <a href="https://zenodo.org/records/20705579"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
                 </a>
               </span>
+              <!-- Zenodo DOI -->
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
+                <a href="https://doi.org/10.5281/zenodo.20705579"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
+                  <span class="icon"><i class="ai ai-zenodo"></i></span>
+                  <span>Zenodo</span>
                 </a>
               </span>
-              <!-- Video Link. -->
+              <!-- Code (placeholder) -->
               <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark"
+                   title="Code release coming soon">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code (soon)</span>
                 </a>
               </span>
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              </span>
-              <!-- Dataset Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a>
             </div>
-
           </div>
         </div>
       </div>
@@ -175,73 +110,54 @@
   </div>
 </section>
 
+<!-- ===================== TEASER ===================== -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
+      <video id="teaser" autoplay muted loop playsinline>
+        <source src="./static/videos/branch_div.mp4" type="video/mp4">
       </video>
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
+        A single explicit formula that <b>drives</b> open-ended evolution in artificial life — and <b>reads back</b> a physical signature of living matter the metric was never optimized for.
       </h2>
     </div>
   </div>
 </section>
 
-
+<!-- ===================== SUBSTRATE CAROUSEL ===================== -->
 <section class="hero is-light is-small">
   <div class="hero-body">
     <div class="container">
+      <h2 class="title is-4 has-text-centered" style="margin-bottom: 1.5rem;">Three artificial-life substrates · one recipe</h2>
       <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
+        <div class="item">
+          <video autoplay controls muted loop playsinline>
+            <source src="./static/videos/flow_random.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
+        <div class="item">
+          <video autoplay controls muted loop playsinline>
+            <source src="./static/videos/flow_lockheed.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
+        <div class="item">
+          <video autoplay controls muted loop playsinline>
+            <source src="./static/videos/ca_rank01.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
+        <div class="item">
+          <video autoplay controls muted loop playsinline>
+            <source src="./static/videos/plife_best.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
+        <div class="item">
+          <video autoplay controls muted loop playsinline>
+            <source src="./static/videos/mspd_opt.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
+        <div class="item">
+          <video autoplay controls muted loop playsinline>
+            <source src="./static/videos/frustration.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -249,219 +165,348 @@
   </div>
 </section>
 
-
+<!-- ===================== TL;DR ===================== -->
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
+        <h2 class="title is-3">TL;DR</h2>
         <div class="content has-text-justified">
           <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
+            Open-ended evolution in artificial life is typically driven by uninterpretable, black-box neural-network complexity metrics, leaving life-like systems disconnected from physical theories of complexity. We introduce <b>MSPD</b> (Multi-Scale Path Divergence, $D_P$) — a renormalization-group-inspired scalar that quantifies the temporal multiscale organization of heterogeneity in local transition laws. MSPD is an <i>explicit formula</i> that plays a dual role: as a gradient-free fitness function and as a post-hoc analytical lens on any simulation that exposes local transition laws.
           </p>
           <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
+            <b>Three claims, retained for this version of the paper:</b>
           </p>
-          <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
-          </p>
+          <ul>
+            <li>MSPD-optimized parameters produce higher held-out complexity scores than matched random parameters from the same substrate (<b>C1</b>).</li>
+            <li>High-$\Delta H$ states correspond to states with higher instability to external interventions — the metric tracks the biology of the dynamics, not noise (<b>C2</b>).</li>
+            <li>Higher MSPD corresponds to stronger <i>scale-dependent frustration</i>, linking MSPD post-hoc to the frustration criterion of biological complexity (Wolf et al., Vanchurin et al.) <b>without the metric being optimized for it</b> (<b>C5</b>).</li>
+            <li>The protocol transfers across three substrates: Flow-Lenia, Life-like cellular automata, and Particle Life++ (<b>C6</b>).</li>
+          </ul>
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-    <!--/ Paper video. -->
   </div>
 </section>
 
+<!-- ===================== TWO-LOOP FRAMING ===================== -->
+<section class="section" style="background: #fafafa;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Two nested loops</h2>
+        <p class="content has-text-justified">
+          Open-ended evolution is a <b>two-loop</b> setup. An <b>inner loop</b> applies a fixed rule $\theta$ to states, generating a trajectory. An <b>outer loop</b> rescores the trajectory with some scalar — the "compass" — and mutates $\theta$. The compass is the bottleneck of the field: today, it's typically a neural network (ASAL, Leniabreeder), with no link to physical theories of complexity. MSPD is an explicit, RG-grounded alternative.
+        </p>
+        <figure class="diagram-wide">
+          <img class="diagram-wide-img" src="./static/images/ca_evo_loop_nb.png" alt="Two nested loops: inner state dynamics under fixed rule θ; outer loop computes D_P, mutates θ via CMA-ES, feeds new θ back into inner loop.">
+          <figcaption class="formula-gloss">Outer loop evolves the rule of the inner loop.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ===================== THE METRIC ===================== -->
 <section class="section">
   <div class="container is-max-desktop">
-
     <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">The metric</h2>
+        <p class="content has-text-justified">
+          MSPD is a temporal extension of spatial Multi-Scale Structural Complexity (Bagrov et al. 2020). The RG architecture is inherited intact: the spatial coarse-graining scale $\lambda$ is replaced by an <b>observation window</b> $W$ on time, and cross-scale dissimilarity is computed in trajectory-distribution space rather than image space.
+        </p>
 
-      <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
-          <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
-          </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
+        <div class="has-text-centered" style="margin: 2rem 0;">
+          $$ D_P \;=\; \int \frac{\bigl\lVert \partial_{\log r}\, h_r \bigr\rVert^{2}}{\lVert h_r \rVert^{2} + \eta^{2}} \, dq(\log r) $$
+        </div>
+
+        <p class="content has-text-justified" style="margin-top: -0.4rem;">where the <b>heterogeneity trace</b> $h$ measures, at every state $x$ along the trajectory, the average pairwise divergence between local transition laws at sites $i$ and $j$:</p>
+
+        <div class="has-text-centered" style="margin: 1.4rem 0;">
+          $$ h(x) \;=\; \iint_{\mathcal{I}\times\mathcal{I}} D\bigl(T_i(x),\, T_j(x)\bigr) \, m(di)\, m(dj) $$
+        </div>
+
+        <div class="formula-gloss">
+          <span class="term"><b>$T_i(x)$</b> — local transition law at site $i$ in state $x$</span>
+          <span class="term"><b>$D$</b> — distance between transition laws (sliced-Wasserstein in practice)</span>
+          <span class="term"><b>$r$</b> — temporal scale (window size)</span>
+        </div>
+
+        <h3 class="title is-4 has-text-centered" style="margin-top: 2.6rem;">From trajectory to scalar</h3>
+        <figure class="diagram-wide">
+          <img class="diagram-wide-img" src="./static/images/inner_loop_diagram.png" alt="Pipeline: trajectory ξ under fixed θ → local transition-law estimation via SW₁ divergence → windowed heterogeneity trace ΔĤ_k → cross-scale aggregation → MSPD scalar.">
+          <figcaption class="formula-gloss">Inner loop · MSPD computation from trajectory ξ to scalar $D_P$.</figcaption>
+        </figure>
+
+        <h3 class="title is-4 has-text-centered" style="margin-top: 2.6rem;">Pipeline on real data</h3>
+        <div class="substrate-grid">
+          <figure class="video-figure">
+            <img src="./static/images/real_tracers_frame.png" style="width:100%; border-radius:6px;" alt="Lagrangian tracers in a Flow-Lenia rollout">
+            <figcaption>① Track local carriers</figcaption>
+          </figure>
+          <figure class="video-figure">
+            <img src="./static/images/real_dh_optimized_eval.png" style="width:100%; border-radius:6px;" alt="ΔH heatmap over windows and lags">
+            <figcaption>② Heterogeneity map $\Delta H(W, \tau)$</figcaption>
+          </figure>
+          <figure class="video-figure">
+            <img src="./static/images/real_aggregation_dyadic.png" style="width:100%; border-radius:6px;" alt="Cross-scale aggregation of the heterogeneity trace">
+            <figcaption>③ Aggregate across scales → $D_P$</figcaption>
+          </figure>
         </div>
       </div>
-      <!--/ Visual Effects. -->
+    </div>
+  </div>
+</section>
 
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
-            </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
+<!-- ===================== RESULTS — C1 ===================== -->
+<section class="section" style="background: #fafafa;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">C1 · Optimization works</h2>
+        <p class="content has-text-justified">
+          On Particle Life++, MSPD-optimized parameters produce higher held-out scores than matched random parameters from the same substrate: <b>7/7 matched groups positive, p = 0.008</b>. Confirmed on Life-like CA by exhaustive rule sweep. Directional but underpowered on Flow-Lenia (6/9, p = 0.25) under the current optimization budget.
+        </p>
+        <div class="pair-grid">
+          <figure class="video-figure">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/random_r2.mp4" type="video/mp4">
             </video>
-          </div>
-
+            <figcaption>Random parameters — drifts into a frozen, low-motion basin.</figcaption>
+          </figure>
+          <figure class="video-figure">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/mspd_opt.mp4" type="video/mp4">
+            </video>
+            <figcaption>$D_P$-optimized — persistent, reorganizing groups.</figcaption>
+          </figure>
         </div>
+        <p class="content has-text-justified" style="font-style: italic; font-size: 0.92em;">
+          <b>Sanity check:</b> on synthetic controls, $D_P$ is zero for white noise, zero for a single drifting blob, and low for stationary role mixtures — it measures <i>temporally organized</i> heterogeneity, not motion magnitude or visual novelty.
+        </p>
       </div>
     </div>
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
-        <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
-          </p>
-        </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
-          </div>
-        </div>
-        <br/>
-        <!--/ Interpolating. -->
-
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <!--/ Re-rendering. -->
-
-      </div>
-    </div>
-    <!--/ Animation. -->
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Concurrent Work. -->
-
   </div>
 </section>
 
+<!-- ===================== RESULTS — C2 ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">C2 · Spikes mark branch points</h2>
+        <p class="content has-text-justified">
+          A locally elevated $\Delta H$ marks states where a small perturbation sends the future down divergent paths. Quiet states heal. The metric responds to dynamics, not noise — confirmed within source trajectories (8/9 positive, pooled Spearman $r$ = 0.62).
+        </p>
+        <div class="pair-grid">
+          <figure class="video-figure">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/c2_flowlenia_selected_branch_divergence_2x2_low_H.mp4" type="video/mp4">
+            </video>
+            <figcaption>Low $D_P$ · perturbed futures heal.</figcaption>
+          </figure>
+          <figure class="video-figure">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/branch_div.mp4" type="video/mp4">
+            </video>
+            <figcaption>High $D_P$ · perturbed futures fan out.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<section class="section" id="BibTeX">
+<!-- ===================== FRUSTRATION — concept ===================== -->
+<section class="section" style="background: #fafafa;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">C5 · Optimized systems develop frustration</h2>
+
+        <div class="columns" style="margin-top: 1rem;">
+          <div class="column">
+            <p class="content has-text-justified">
+              <b>What is frustration?</b> Put three antiferromagnetic spins on a triangle. Each pair wants to point opposite — but the three constraints cannot all be satisfied at once. The system has many local-minimum configurations of nearly equal energy, separated by barriers. This is <i>frustration</i> — competing local rules with no globally consistent ground state — and the result is a rugged energy landscape where the basin a system ends up in depends on its <b>early history</b>, not just its current state. Wolf, Katsnelson & Koonin (2018) and Vanchurin et al. (2022) argue: <b>living matter sits in this regime</b>.
+            </p>
+          </div>
+          <div class="column is-narrow" style="max-width: 460px;">
+            <figure class="video-figure">
+              <img src="./static/images/frustration_landscape.png" style="width:100%; border-radius:6px;" alt="Rugged energy landscape with two trajectories diverging into different basins under early constraint.">
+              <figcaption>Rugged landscape · early history selects the basin.</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <h3 class="title is-4 has-text-centered" style="margin-top: 1.4rem;">Operationalization · three matched rollouts per checkpoint</h3>
+        <p class="content has-text-justified">
+          For each checkpoint $\theta$, run three matched rollouts: $A_\theta$ (same seed, free), $C_\theta$ (different seed, free), $W_\theta$ (same seed, early spatial constraint then released). The <b>anchored frustration score</b> subtracts ordinary seed-to-seed variability from the intervention effect, measured in CLIP-feature space:
+        </p>
+
+        <div class="has-text-centered" style="margin: 1.4rem 0;">
+          $$ F_s(\theta) \;=\; d_s(A_\theta, W_\theta) \;-\; d_s(A_\theta, C_\theta) $$
+        </div>
+
+        <figure class="diagram-wide">
+          <img class="diagram-wide-img" style="max-width:840px; margin:0 auto; display:block;" src="./static/images/c5_three_rollouts_light.svg" alt="Three matched rollouts per checkpoint: A free, C different-seed free, W early constraint then released.">
+        </figure>
+
+        <div class="pair-grid" style="margin-top: 1.6rem;">
+          <figure class="video-figure">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/frustration.mp4" type="video/mp4">
+            </video>
+            <figcaption>Optimized checkpoint · constrained-then-released rollout diverges from the free baseline.</figcaption>
+          </figure>
+          <div>
+            <p class="content has-text-justified">
+              MSPD-optimized checkpoints show larger $A \leftrightarrow W$ gaps than matched random controls — <b>directional evidence</b> on both substrates.
+            </p>
+            <ul>
+              <li><b>Flow-Lenia:</b> 7/9 matched groups positive, sign-test $p = 0.090$</li>
+              <li><b>Particle Life++:</b> 6/7 matched groups positive, sign-test $p = 0.063$</li>
+            </ul>
+            <p class="content has-text-justified" style="font-style: italic; font-size: 0.92em;">
+              Neither result reaches conventional significance — read as <i>underpowered evidence of history dependence</i> rather than confirmed effect. The natural strengthening is replication with a larger matched-group ensemble, without methodological change.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== C6 TRANSFER ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">C6 · One construction, three substrates</h2>
+        <p class="content has-text-justified">
+          The MSPD construction applies uniformly across substrates that expose meaningful local transition laws — categorical for cellular automata, displacement for particle systems, tracer motions for Flow-Lenia. The recipe doesn't change.
+        </p>
+        <div class="substrate-grid">
+          <figure class="video-figure">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/mspd_opt.mp4" type="video/mp4">
+            </video>
+            <figcaption><b>Flow-Lenia</b> · continuous mass flow</figcaption>
+          </figure>
+          <figure class="video-figure">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/ca_rank01.mp4" type="video/mp4">
+            </video>
+            <figcaption><b>Cellular automata</b> · discrete cells</figcaption>
+          </figure>
+          <figure class="video-figure">
+            <video autoplay controls muted loop playsinline>
+              <source src="./static/videos/plife_best.mp4" type="video/mp4">
+            </video>
+            <figcaption><b>Particle Life++</b> · neural particles</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SCORECARD ===================== -->
+<section class="section" style="background: #fafafa;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Where the evidence stands</h2>
+        <table class="claim-table">
+          <thead>
+            <tr>
+              <th>Claim</th>
+              <th>Life-CA</th>
+              <th>Flow-Lenia</th>
+              <th>Particle Life++</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>C1</b> · MSPD-optimized $>$ random</td>
+              <td class="claim-status-ok">✓ rule sweep</td>
+              <td class="claim-status-dir">~ 6/9, p=0.25</td>
+              <td class="claim-status-ok">✓ 7/7, p=0.008</td>
+            </tr>
+            <tr>
+              <td><b>C2</b> · High $\Delta H$ marks branch points</td>
+              <td class="claim-status-ok">✓</td>
+              <td class="claim-status-ok">✓ Spearman 0.62</td>
+              <td class="claim-status-na">—</td>
+            </tr>
+            <tr>
+              <td><b>C5</b> · Scale-dependent frustration</td>
+              <td class="claim-status-na">—</td>
+              <td class="claim-status-dir">~ 7/9, p=0.09</td>
+              <td class="claim-status-dir">~ 6/7, p=0.06</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="content" style="font-size: 0.92em;">
+          <span class="claim-status-ok">✓ confirmed</span> &nbsp;·&nbsp;
+          <span class="claim-status-dir">~ directional / underpowered</span> &nbsp;·&nbsp;
+          <span class="claim-status-na">— not run</span>.
+          C5 on Life-CA is straightforward to add; C2 on Particle Life++ is conceptually obstructed by the deep-attractor structure of the substrate (see paper §5.4).
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LIMITATIONS & NEXT STEPS ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">Limitations and next steps</h2>
+        <div class="content has-text-justified">
+          <p>
+            We are honest about what the current evidence supports and what it doesn't. The paper's §6 limitations cover within-window stationarity, statistical power on C1/C5, sensitivity of C5 to the intervention protocol, and the incomplete 3×3 claim-substrate matrix.
+          </p>
+          <p><b>Three follow-up directions are deferred to the next version of this work:</b></p>
+          <ul>
+            <li><b>Head-to-head vs NN-OEE drivers</b> — run $D_P$-driven evolution against ASAL and Leniabreeder on a shared task, to test whether an interpretable formula matches the empirical performance of black-box judges.</li>
+            <li><b>Multi-objective with snapshot-MSSC</b> — combine the temporal $D_P$ with the original spatial MSSC, since biological complexity is both temporally reorganizing and spatially hierarchical.</li>
+            <li><b>Scale-separation timescale $\tau^*$</b> — system-identify the characteristic time at which within-pattern dynamics separate from between-pattern evolution; the temporal analog of an RG fixed-point scale.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BibTeX ===================== -->
+<section class="section" id="BibTeX" style="background: #fafafa;">
   <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@misc{akhtyrchenko_mspd_2026,
+  author       = {Akhtyrchenko, Mikhail and
+                  Katsnelson, Mikhail I. and
+                  Ustyuzhanin, Andrey},
+  title        = {{Directing Open-Ended Evolution in Artificial
+                   Life via Multi-Scale Path Divergence}},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.20705579},
+  url          = {https://doi.org/10.5281/zenodo.20705579}
 }</code></pre>
   </div>
 </section>
 
-
+<!-- ===================== FOOTER ===================== -->
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
+      <a class="icon-link" href="https://zenodo.org/records/20705579" title="Paper on Zenodo">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+      <a class="icon-link" href="https://github.com/omniscale-ai/mspd-alife" title="Source of this page">
         <i class="fab fa-github"></i>
       </a>
     </div>
@@ -469,16 +514,11 @@
       <div class="column is-8">
         <div class="content">
           <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
+            Project page for <i>Directing Open-Ended Evolution in Artificial Life via Multi-Scale Path Divergence</i>.
+            Hosted by <a href="https://github.com/omniscale-ai">omniscale-ai</a> · Constructor Knowledge Labs.
           </p>
           <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
+            This page is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>. Page design adapted from the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
           </p>
         </div>
       </div>

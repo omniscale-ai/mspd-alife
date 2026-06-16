@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 150" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      .cap     { font-family: Inter, sans-serif; font-size: 8px; letter-spacing: 0.08em; fill: rgba(255,255,255,0.55); text-transform: uppercase; text-anchor: middle; }
+      .letter  { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; fill: #e5e7eb; text-anchor: middle; dominant-baseline: middle; }
+      .letterW { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; fill: #ff14c8; text-anchor: middle; dominant-baseline: middle; }
+      .desc    { font-family: 'Space Grotesk', sans-serif; font-size: 9px; fill: rgba(255,255,255,0.72); text-anchor: middle; }
+      .desc2   { font-family: 'Space Grotesk', sans-serif; font-size: 8.5px; fill: rgba(255,255,255,0.55); text-anchor: middle; font-style: italic; }
+      .card    { fill: rgba(255,255,255,0.04); stroke: rgba(255,255,255,0.25); stroke-width: 1; rx: 6; }
+      .cardW   { fill: rgba(255,20,200,0.06); stroke: rgba(255,20,200,0.45); stroke-width: 1; rx: 6; }
+      .traj    { fill: none; stroke: rgba(127,208,255,0.78); stroke-width: 1.4; }
+      .traj2   { fill: none; stroke: rgba(180,180,180,0.7); stroke-width: 1.4; }
+      .trajW   { fill: none; stroke: rgba(255,20,200,0.85); stroke-width: 1.4; }
+      .barrier { fill: rgba(255,20,200,0.7); }
+      .formula { font-family: 'Space Grotesk', serif; font-size: 12px; font-style: italic; fill: #e5e7eb; text-anchor: middle; }
+      .gloss   { font-family: Inter, sans-serif; font-size: 8.5px; letter-spacing: 0.04em; fill: rgba(255,255,255,0.55); text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Top caption -->
+  <text x="240" y="13" class="cap">Three matched rollouts per checkpoint θ</text>
+
+  <!-- =============== CARD A: same seed, free =============== -->
+  <rect x="15" y="22" width="140" height="74" class="card"/>
+  <text x="32" y="40" class="letter">A</text>
+  <!-- trajectory curve -->
+  <path d="M 60,55 Q 80,42 100,55 T 140,55" class="traj"/>
+  <text x="85" y="80" class="desc">same seed, free</text>
+  <text x="85" y="92" class="desc2">reference rollout</text>
+
+  <!-- =============== CARD C: different seed, free =============== -->
+  <rect x="170" y="22" width="140" height="74" class="card"/>
+  <text x="187" y="40" class="letter">C</text>
+  <path d="M 215,55 Q 232,68 250,52 T 295,58" class="traj2"/>
+  <text x="240" y="80" class="desc">different seed, free</text>
+  <text x="240" y="92" class="desc2">noise-floor control</text>
+
+  <!-- =============== CARD W: same seed, early constraint then release =============== -->
+  <rect x="325" y="22" width="140" height="74" class="cardW"/>
+  <text x="342" y="40" class="letterW">W</text>
+  <!-- barrier (small vertical bar) -->
+  <rect x="367" y="48" width="3" height="16" class="barrier"/>
+  <!-- trajectory bent around the barrier -->
+  <path d="M 363,55 L 367,55 M 370,55 Q 388,42 408,60 T 450,55" class="trajW"/>
+  <text x="395" y="80" class="desc">same seed, early constraint, released</text>
+  <text x="395" y="92" class="desc2">intervention rollout</text>
+
+  <!-- =============== FORMULA STRIP =============== -->
+  <text x="240" y="118" class="formula">F<tspan font-size="9px" baseline-shift="sub">s</tspan>(θ)  =  d(A, W)  −  d(A, C)</text>
+  <text x="240" y="138" class="gloss">intervention effect  minus  seed-to-seed noise floor  ·  measured in CLIP-feature space</text>
+</svg>
