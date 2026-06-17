@@ -271,6 +271,24 @@
   </div>
 </section>
 
+<!-- ===================== SEARCH OVER RULES ===================== -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered">How the MSPD search over rules works</h2>
+        <p class="content has-text-justified">
+          For each substrate, the outer loop walks a different rule space. Life-like cellular automata are small enough to <b>enumerate exhaustively</b> — every one of the 2<sup>18</sup> totalistic rules is scored by MSPD on the same evaluation budget. For Flow-Lenia and Particle Life++ the rule space is continuous; we replace enumeration with <b>Sep-CMA-ES</b>, a gradient-free evolutionary optimizer, but the four-step recipe below is otherwise identical.
+        </p>
+        <figure class="diagram-wide">
+          <img class="diagram-wide-img" src="./static/images/CA-sweeping.png" alt="Four-panel CA-sweeping pipeline: enumerate 262,144 Life-like rules, simulate each on a 64×64 toroidal grid for 512 steps, score by MSPD over local transitions, rank and keep the top rules.">
+          <figcaption class="formula-gloss">CA case shown — enumerate · simulate · score by MSPD · rank. The top rules become the "optimized" entries in the C1 result.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== RESULTS — C1 ===================== -->
 <section class="section" style="background: #fafafa;">
   <div class="container is-max-desktop">
