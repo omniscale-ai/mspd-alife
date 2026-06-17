@@ -1,78 +1,88 @@
 window.HELP_IMPROVE_VIDEOJS = false;
 
-var INTERP_BASE = "./static/interpolation/stacked";
-var NUM_INTERP_FRAMES = 240;
-
-var interp_images = [];
-function preloadInterpolationImages() {
-  for (var i = 0; i < NUM_INTERP_FRAMES; i++) {
-    var path = INTERP_BASE + '/' + String(i).padStart(6, '0') + '.jpg';
-    interp_images[i] = new Image();
-    interp_images[i].src = path;
-  }
-}
-
-function setInterpolationImage(i) {
-  var image = interp_images[i];
-  image.ondragstart = function() { return false; };
-  image.oncontextmenu = function() { return false; };
-  $('#interpolation-image-wrapper').empty().append(image);
-}
-
-
 $(document).ready(function() {
-    // Check for click events on the navbar burger icon
+
+    // ---------- mobile navbar burger (template behaviour) ----------
     $(".navbar-burger").click(function() {
-      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
       $(".navbar-burger").toggleClass("is-active");
       $(".navbar-menu").toggleClass("is-active");
-
     });
 
+    // ---------- bulma-carousel ----------
     var options = {
-			slidesToScroll: 1,
-			slidesToShow: 3,
-			loop: true,
-			infinite: true,
-			autoplay: false,
-			autoplaySpeed: 3000,
-    }
+      slidesToScroll: 1,
+      slidesToShow: 3,
+      loop: true,
+      infinite: true,
+      autoplay: false,
+      autoplaySpeed: 3000,
+    };
 
-		// Initialize all div with carousel class
     var carousels = bulmaCarousel.attach('.carousel', options);
 
-    // Loop on each carousel initialized
-    for(var i = 0; i < carousels.length; i++) {
-    	// Add listener to  event
-    	carousels[i].on('before:show', state => {
-    		console.log(state);
-    	});
+    // ---------- AUTOPLAY-ON-VIEW for non-carousel videos ----------
+    // Each <video preload="none"> outside the carousel autoplays when scrolled
+    // into view and pauses when scrolled out. The teaser keeps its own
+    // autoplay attribute and is excluded.
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          var v = entry.target;
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+            // play() returns a promise; swallow rejection (browser autoplay block)
+            var p = v.play();
+            if (p && typeof p.catch === 'function') p.catch(function() {});
+          } else {
+            v.pause();
+          }
+        });
+      }, { threshold: [0, 0.35, 0.7, 1] });
+
+      document.querySelectorAll('video').forEach(function(v) {
+        if (v.id === 'teaser') return;
+        if (v.closest('.carousel')) return;
+        observer.observe(v);
+      });
     }
 
-    // Access to bulmaCarousel instance of an element
-    var element = document.querySelector('#my-element');
-    if (element && element.bulmaCarousel) {
-    	// bulmaCarousel instance is available as element.bulmaCarousel
-    	element.bulmaCarousel.on('before-show', function(state) {
-    		console.log(state);
-    	});
+    // ---------- AUTOPLAY in the carousel ----------
+    // The substrate carousel cycles between items via bulma-carousel. We:
+    //   1) pause all videos in the carousel on every slide change,
+    //   2) replay whichever items end up DOM-visible inside the carousel
+    //      bounding box (with slidesToShow: 3, usually 3 at a time).
+    function playVisibleCarouselVideos(carouselEl) {
+      if (!carouselEl) return;
+      var rootRect = carouselEl.getBoundingClientRect();
+      carouselEl.querySelectorAll('video').forEach(function(v) {
+        var r = v.getBoundingClientRect();
+        var visible = r.right > rootRect.left + 8 && r.left < rootRect.right - 8 && r.width > 8;
+        if (visible) {
+          var p = v.play();
+          if (p && typeof p.catch === 'function') p.catch(function() {});
+        }
+      });
     }
 
-    /*var player = document.getElementById('interpolation-video');
-    player.addEventListener('loadedmetadata', function() {
-      $('#interpolation-slider').on('input', function(event) {
-        console.log(this.value, player.duration);
-        player.currentTime = player.duration / 100 * this.value;
-      })
-    }, false);*/
-    preloadInterpolationImages();
+    function pauseAllCarouselVideos(carouselEl) {
+      if (!carouselEl) return;
+      carouselEl.querySelectorAll('video').forEach(function(v) { v.pause(); });
+    }
 
-    $('#interpolation-slider').on('input', function(event) {
-      setInterpolationImage(this.value);
+    var resultsCarousel = document.querySelector('.results-carousel');
+
+    carousels.forEach(function(c) {
+      // bulma-carousel exposes 'before:show' / 'after:show' events
+      c.on('before:show', function() {
+        pauseAllCarouselVideos(resultsCarousel);
+      });
+      c.on('after:show', function() {
+        // small delay so the slide transform has settled
+        setTimeout(function() { playVisibleCarouselVideos(resultsCarousel); }, 80);
+      });
     });
-    setInterpolationImage(0);
-    $('#interpolation-slider').prop('max', NUM_INTERP_FRAMES - 1);
+
+    // initial kick-off after carousel layout has settled
+    setTimeout(function() { playVisibleCarouselVideos(resultsCarousel); }, 500);
 
     bulmaSlider.attach();
-
-})
+});
