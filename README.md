@@ -2,7 +2,7 @@
 
 Static project page for **"Directing Open-Ended Evolution in Artificial Life via Multi-Scale Path Divergence"** — Akhtyrchenko, Katsnelson, Ustyuzhanin.
 
-- **Paper (Zenodo):** https://zenodo.org/records/20705579
+- **Paper (arXiv):** https://arxiv.org/abs/2606.17091
 - **Live page:** https://omniscale-ai.github.io/mspd-alife/
 
 ## Local preview
